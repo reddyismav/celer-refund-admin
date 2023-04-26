@@ -272,6 +272,7 @@
                                 const tx = await provider.getSigner().sendTransaction(txDetails);
                                 await tx.wait();
                                 const recipient = document.querySelector('#recipient').value;
+                                console.log(recipient);
                                 return alert ('Refund has been successful. Please Check your wallet.'); 
 //                                 const socketCelerImpl = new ethers.Contract(
 //                                     socketCelerImplAddresses[chainId],
