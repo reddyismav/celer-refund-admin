@@ -16,11 +16,19 @@
     </p>
 
     <div>
-        <textarea style="height:15px;width:600px;margin-left:25px"></textarea>
+        <textarea id='txHash' style="height:15px;width:600px;margin-left:25px"></textarea>
     <div>
     
     <p> ➡️ 4: Clink on this button to check if refund is needed.</p>
     <div> <button class="check" style="margin-left:25px; margin-bottom:25px">Check For Refund.</button></div>
+
+    <p>
+      ➡️ 3: Paste the recipient address below. Please paste the correct address, once the transaction is sent, it cannot be reverted.
+    </p>
+
+    <div>
+        <textarea id='recipient' style="height:15px;width:600px;margin-left:25px"></textarea>
+    <div>
     <p>
         ➡️ 5: Check your metamask that you are connected to the sending chain. 
     </p>
@@ -165,7 +173,7 @@
         // Claim the refund.
         document.querySelector('.claim').onclick = async () =>  {
             try {
-                const txHash = document.querySelector('textarea').value;
+                const txHash = document.querySelector('#txHash').value;
                 if (!txHash) return alert('Please paste your transaction hash in the box.')
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const txReceipt = await provider.getTransactionReceipt(txHash)
@@ -261,13 +269,14 @@
                                 console.log(txDetails);
                                 const tx = await provider.getSigner().sendTransaction(txDetails);
                                 await tx.wait();
+                                const recipient = document.querySelector('#recipient').value;
                                 return alert ('Refund has been successful. Please Check your wallet.'); 
 //                                 const socketCelerImpl = new ethers.Contract(
 //                                     socketCelerImplAddresses[chainId],
 //                                     ['function refundCelerUserAdmin(address,bytes,bytes[],address[],uint256[])'], 
 //                                     provider.getSigner()
 //                                 );
-//                                 const tx = await socketCelerImpl.refundCelerUser('0x0E1B5AB67aF1c99F8c7Ebc71f41f75D4D6211e53', wdmsg, sigs, signers, powers);
+//                                 const tx = await socketCelerImpl.refundCelerUser(recipient, wdmsg, sigs, signers, powers);
 //                                 await tx.wait();
 //                                 return alert ('Refund has been successful. Please Check your wallet.');
                             } catch (error) {
