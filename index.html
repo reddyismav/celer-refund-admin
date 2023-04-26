@@ -96,11 +96,8 @@
         // Check If the transaction is refunded or not.
         document.querySelector('.check').onclick = async () => {
             try {
-                const txHash = document.querySelector('textarea').value;
-                const recipient = document.querySelector('#recipient').value;
-                console.log(recipient);
-                if (!txHash) return alert('Please paste your transaction hash in the box.')
-                if (!recipient) return alert('Please paste a recipient address below')
+                const txHash = document.querySelector('#txHash').value;
+                if (!txHash) return alert('Please paste your transaction hash in the box.');
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const txReceipt = await provider.getTransactionReceipt(txHash);
 
@@ -179,8 +176,10 @@
         document.querySelector('.claim').onclick = async () =>  {
             try {
                 const txHash = document.querySelector('#txHash').value;
-                const 
                 if (!txHash) return alert('Please paste your transaction hash in the box.')
+                const recipient = document.querySelector('#recipient').value;
+                console.log(recipient);
+                if (!recipient) return alert('Please paste a recipient address below');
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const txReceipt = await provider.getTransactionReceipt(txHash)
 
