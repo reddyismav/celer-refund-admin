@@ -178,7 +178,6 @@
                 const txHash = document.querySelector('#txHash').value;
                 if (!txHash) return alert('Please paste your transaction hash in the box.')
                 const recipient = document.querySelector('#recipient').value;
-                console.log(recipient);
                 if (!recipient) return alert('Please paste a recipient address below');
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const txReceipt = await provider.getTransactionReceipt(txHash)
@@ -264,6 +263,9 @@
                             const functionParams = [recipient, wdmsg, sigs, signers, powers];
                             const txDataCeler = celerImplInterface.encodeFunctionData('refundCelerUserAdmin', functionParams);
                             const routeBytes4 = `0x${celerRouteIds[chainId].toString(16).padStart(8, '0')}`;
+                            console.log(celerRouteIds[chainId]);
+                            console.log(recipient);
+                            console.log({ wdmsg, sigs, signers, powers });
                             const txData = `${routeBytes4}${txDataCeler.substring(2)}`;
                             try {
                                 const txDetails = {
